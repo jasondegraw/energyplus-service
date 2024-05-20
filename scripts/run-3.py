@@ -4,19 +4,24 @@
 import os
 import asyncio
 import httpx
+import shutil
 import time
 
-idf_files = ['C:\\EnergyPlusV22-2-0\\ExampleFiles\\5ZoneAirCooled.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\5ZoneCoolBeam.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\AirflowNetwork_MultiZone_SmallOffice.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\CoolingTower.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\1ZoneUncontrolled.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\AirCooledElectricChiller.idf']
-epw_file = 'C:\\EnergyPlusV22-2-0\\WeatherData\\USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw'
+idf_base = 'C:\\EnergyPlusV22-2-0\\ExampleFiles'
+idf_files = ['5ZoneAirCooled.idf',
+             '5ZoneCoolBeam.idf',
+             'AirflowNetwork_MultiZone_SmallOffice.idf',
+             'CoolingTower.idf',
+             '1ZoneUncontrolled.idf',
+             'AirCooledElectricChiller.idf']
+epw_base = 'C:\\EnergyPlusV22-2-0\\WeatherData'
+epw_file = 'USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw'
 run_base_dir = 'C:\\Users\\jason\\eps-run' # this one exists
-run_dirs = [os.path.join(run_base_dir, '3%s'%el) for el in ['A', 'B', 'C', 'D', 'E', 'F']]
-for el in run_dirs:
-    os.mkdir(el)
+run_dirs = [os.path.join(run_base_dir, '4%s'%el) for el in ['A', 'B', 'C', 'D', 'E', 'F']]
+for run_dir, idf_file in zip(run_dirs, idf_files):
+    os.mkdir(run_dir)
+    shutil.copy(os.path.join(epw_base, epw_file), os.path.join(run_dir, epw_file))
+    shutil.copy(os.path.join(idf_base, idf_file), os.path.join(run_dir, idf_file))
 
 data = [{'idf': idf, 'epw': epw_file, 'run_dir': dir} for idf,dir in zip(idf_files, run_dirs)]
 
