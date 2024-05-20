@@ -7,6 +7,8 @@ import subprocess
 
 from .__about__ import __version__
 
+__all__ = ["__version__", "create_app"]
+
 def create_app(config=None):
     # create and configure the app
     app = Flask(__name__)
