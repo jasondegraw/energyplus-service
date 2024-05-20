@@ -11,8 +11,7 @@ def create_app(config=None):
     # create and configure the app
     app = Flask(__name__)
     app.config.from_mapping(
-        ENERGYPLUS='energyplus',
-        WEATHER_DIR='.'
+        ENERGYPLUS='energyplus'
     )
 
     app.config.from_prefixed_env()

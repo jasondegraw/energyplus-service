@@ -7,8 +7,6 @@ import energyplus_service as eps
 from ..__about__ import __version__
 
 
-
-
 @click.command()
 @click.option('-e', '--energyplus', show_default=True, default='energyplus', help='energyplus executable to use.')
 def dev(energyplus):
