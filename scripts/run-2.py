@@ -6,15 +6,21 @@ import asyncio
 import httpx
 import time
 
-idf_files = ['C:\\EnergyPlusV22-2-0\\ExampleFiles\\5ZoneAirCooled.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\5ZoneCoolBeam.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\AirflowNetwork_MultiZone_SmallOffice.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\CoolingTower.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\1ZoneUncontrolled.idf',
-             'C:\\EnergyPlusV22-2-0\\ExampleFiles\\AirCooledElectricChiller.idf']
-epw_file = 'C:\\EnergyPlusV22-2-0\\WeatherData\\USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw'
-run_base_dir = 'C:\\Users\\jason\\eps-run' # this one exists
-run_dirs = [os.path.join(run_base_dir, '3%s'%el) for el in ['A', 'B', 'C', 'D', 'E', 'F']]
+script_path = os.path.realpath(__file__)
+script_dir = os.path.dirname(script_path)
+
+idf_dir = os.path.join(script_dir, '..', 'resources')
+idfs = ['5ZoneAirCooled.idf',
+        '5ZoneCoolBeam.idf',
+        'AirflowNetwork_MultiZone_SmallOffice.idf',
+        'CoolingTower.idf',
+        '1ZoneUncontrolled.idf',
+        'AirCooledElectricChiller.idf']
+idf_files = [os.path.join(idf_dir, el) for el in idfs]
+epw_file = os.path.join(script_dir, '..', 'resources', 'USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw')
+
+run_base_dir = os.path.join(script_dir, '..', 'run') # this one exists
+run_dirs = [os.path.join(run_base_dir, '2%s'%el) for el in ['A', 'B', 'C', 'D', 'E', 'F']]
 for el in run_dirs:
     os.mkdir(el)
 
