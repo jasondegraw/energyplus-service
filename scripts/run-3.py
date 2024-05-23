@@ -31,7 +31,7 @@ data = [{'idf': idf, 'epw': epw_file, 'run_dir': dir} for idf,dir in zip(idf_fil
 
 async def run():
     async with httpx.AsyncClient() as client:
-        tasks = [client.post('http://127.0.0.1:5000/run', data=inputs, timeout=None) for inputs in data]
+        tasks = [client.post('http://127.0.0.1:5000/local/run', json=inputs, timeout=None) for inputs in data]
         result = await asyncio.gather(*tasks)
         return result
 

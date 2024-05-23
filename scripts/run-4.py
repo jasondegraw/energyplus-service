@@ -29,7 +29,7 @@ for run_dir, idf_file in zip(run_dirs, idf_files):
 
 async def run():
     async with httpx.AsyncClient() as client:
-        tasks = [client.post('http://127.0.0.1:5000/in', data={'run_dir': run_dir}, timeout=None) for run_dir in run_dirs]
+        tasks = [client.post('http://127.0.0.1:5000/local/in', json={'run_dir': run_dir}, timeout=None) for run_dir in run_dirs]
         result = await asyncio.gather(*tasks)
         return result
 

@@ -17,7 +17,7 @@ os.mkdir(run_dir)
 inputs = {'idf': idf_file, 'epw': epw_file, 'run_dir': run_dir}
 
 start = time.time()
-r = httpx.post('http://127.0.0.1:5000/run', data=inputs, timeout=None)
+r = httpx.post('http://127.0.0.1:5000/local/run', json=inputs, timeout=None)
 delta = time.time() - start
 
 print('Done! (%s seconds)' % delta)
